@@ -209,6 +209,7 @@ class UserOptions extends PureComponent {
       mountModal,
       toggleStatus,
       toggleMuteAllUsers,
+      unMuteAllUsers,
       toggleMuteAllUsersExceptPresenter,
       meetingIsBreakout,
       hasBreakoutRoom,
@@ -242,7 +243,7 @@ class UserOptions extends PureComponent {
           key: this.muteAllId,
           label: intl.formatMessage(intlMessages[isMeetingMuted ? 'unmuteAllLabel' : 'muteAllLabel']),
           // description: intl.formatMessage(intlMessages[isMeetingMuted ? 'unmuteAllDesc' : 'muteAllDesc']),
-          onClick: toggleMuteAllUsers,
+          onClick: isMeetingMuted ? unMuteAllUsers : toggleMuteAllUsers,
           icon: isMeetingMuted ? 'unmute' : 'mute',
         });
 

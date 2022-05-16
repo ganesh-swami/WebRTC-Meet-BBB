@@ -62,7 +62,7 @@ const setSwapLayout = (layoutContextDispatch) => {
   }
 };
 
-const toggleSwapLayout = (layoutContextDispatch) => {
+const toggleSwapLayout = (layoutContextDispatch,amIPresenter) => {
   window.dispatchEvent(new Event('togglePresentationHide'));
   swapLayout.value = !swapLayout.value;
   swapLayout.tracker.changed();
@@ -71,6 +71,12 @@ const toggleSwapLayout = (layoutContextDispatch) => {
     type: ACTIONS.SET_PRESENTATION_IS_OPEN,
     value: !swapLayout.value,
   });
+
+  if(amIPresenter){
+    // update value to db
+    console.log('@class toggleSwapLayout swapLayout.value',swapLayout.value);
+    Meteor.call('togglePresentation',swapLayout.value);
+  }
 };
 
 export const shouldEnableSwapLayout = () => {

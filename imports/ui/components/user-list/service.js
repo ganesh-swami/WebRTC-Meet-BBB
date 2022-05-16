@@ -455,9 +455,31 @@ const removeUser = (userId, banUser) => {
 
 const toggleVoice = (userId) => {
   if (userId === Auth.userID) {
+    //console.log('@class unmute owner user', userId);
+    //AudioService.toggleMuteMicrophone();
+    makeCall('unMute', userId);
+    Storage.setItem('muted', false);
+  } else {
+    // makeCall('toggleVoice', userId);
+    //console.log('@class unmute user', userId);
+    makeCall('unMute', userId);
+    logger.info({
+      logCode: 'usermenu_option_mute_toggle_audio',
+      extraInfo: { logType: 'moderator_action', userId },
+    }, 'moderator muted user microphone');
+  }
+};
+
+const toggleVoiceOld = (userId) => {
+  if (userId === Auth.userID) {
+    //console.log('@class unmute owner user', userId);
     AudioService.toggleMuteMicrophone();
+    //makeCall('unMute', userId);
+    //Storage.setItem('muted', );
   } else {
     makeCall('toggleVoice', userId);
+    //console.log('@class unmute user', userId);
+    //makeCall('unMute', userId);
     logger.info({
       logCode: 'usermenu_option_mute_toggle_audio',
       extraInfo: { logType: 'moderator_action', userId },
@@ -656,6 +678,7 @@ export default {
   clearAllEmojiStatus,
   assignPresenter,
   removeUser,
+  toggleVoiceOld,
   toggleVoice,
   muteAllUsers,
   muteAllExceptPresenter,

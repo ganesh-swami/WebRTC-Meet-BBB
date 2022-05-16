@@ -107,7 +107,7 @@
     "app.userList.userOptions.clearAllDesc": "Clears all status icons from users",
     "app.userList.userOptions.muteAllExceptPresenterLabel": "Mute all users except presenter",
     "app.userList.userOptions.muteAllExceptPresenterDesc": "Mutes all users in the meeting except the presenter",
-    "app.userList.userOptions.unmuteAllLabel": "Turn off meeting mute",
+    "app.userList.userOptions.unmuteAllLabel": "Unmute all users",
     "app.userList.userOptions.unmuteAllDesc": "Unmutes the meeting",
     "app.userList.userOptions.lockViewersLabel": "Lock viewers",
     "app.userList.userOptions.lockViewersDesc": "Lock certain functionalities for attendees of the meeting",

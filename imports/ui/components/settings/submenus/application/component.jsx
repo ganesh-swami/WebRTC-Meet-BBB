@@ -504,7 +504,7 @@ class ApplicationMenu extends BaseMenu {
               </div>
             </div>
           </div>
-          {this.renderChangeLayout()}
+          {/* {this.renderChangeLayout()} */}
         </div>
       </div>
     );

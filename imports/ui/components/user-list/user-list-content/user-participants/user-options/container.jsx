@@ -64,8 +64,44 @@ const UserOptionsContainer = withTracker((props) => {
     toggleMuteAllUsers: () => {
       UserListService.muteAllUsers(Auth.userID);
       if (isMeetingMuteOnStart()) {
+        // console.log('@class @toggleMuteAllUsers isMeetingMuted',isMeetingMuted);
+        // // unmute all users one by one
+        // if(isMeetingMuted===true){
+          
+        //   unmuteUsers = users.map( user => 
+        //     UserListService.toggleVoice(user.userId)
+        //   );
+        // }
         return meetingMuteDisabledLog();
       }
+      //let isMeetingMuted= isMeetingMuteOnStart();
+      
+      return logger.info({
+        logCode: 'useroptions_mute_all',
+        extraInfo: { logType: 'moderator_action' },
+      }, 'moderator enabled meeting mute, all users muted');
+    },
+
+    unMuteAllUsers: () => {
+      UserListService.muteAllUsers(Auth.userID);
+      console.log('@class @unMuteAllUsers users',users);
+      unmuteUsers = users.map( user => 
+        
+        UserListService.toggleVoice(user.userId)
+      );
+      // if (isMeetingMuteOnStart()) {
+      //   console.log('@class @toggleMuteAllUsers isMeetingMuted',isMeetingMuted);
+      //   // unmute all users one by one
+      //   if(isMeetingMuted===true){
+          
+      //     unmuteUsers = users.map( user => 
+      //       UserListService.toggleVoice(user.userId)
+      //     );
+      //   }
+      //   return meetingMuteDisabledLog();
+      // }
+      //let isMeetingMuted= isMeetingMuteOnStart();
+      
       return logger.info({
         logCode: 'useroptions_mute_all',
         extraInfo: { logType: 'moderator_action' },

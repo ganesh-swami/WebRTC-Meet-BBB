@@ -29,7 +29,7 @@ export default withTracker(({ user }) => {
     isMeteorConnected: Meteor.status().connected,
     isThisMeetingLocked: UserListService.isMeetingLocked(Auth.meetingID),
     voiceUser: UserListService.curatedVoiceUser(user.userId),
-    toggleVoice: UserListService.toggleVoice,
+    toggleVoice: UserListService.toggleVoiceOld,
     removeUser: UserListService.removeUser,
     toggleUserLock: UserListService.toggleUserLock,
     changeRole: UserListService.changeRole,

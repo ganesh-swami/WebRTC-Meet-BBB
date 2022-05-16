@@ -30,7 +30,7 @@ public:
     appName: BigBlueButton HTML5 Client
     bbbServerVersion: 2.4
     copyright: '©2022 BigBlueButton Inc.'
-    html5ClientBuild: HTML5_CLIENT_VERSION
+    html5ClientBuild: 2518
     helpLink: https://bigbluebutton.org/html5/
     lockOnJoin: true
     cdn: ''
@@ -205,7 +205,7 @@ public:
   externalVideoPlayer:
     enabled: true
   kurento:
-    wsUrl: HOST
+    wsUrl: wss://video.seeyouinclassonline.com/bbb-webrtc-sfu
     # Valid for video-provider. Time (ms) before its WS connection times out
     # and tries to reconnect.
     wsConnectionTimeout: 4000
@@ -450,7 +450,7 @@ public:
     lines: 2
     time: 5000
   chat:
-    enabled: true
+    enabled: false
     itemsPerPage: 100
     timeBetweenFetchs: 1000
     enableSaveAndCopyPublicChat: true
@@ -477,11 +477,11 @@ public:
     moderatorChatEmphasized: true
   note:
     enabled: true
-    url: ETHERPAD_HOST
+    url: https://video.seeyouinclassonline.com/pad
   layout:
     autoSwapLayout: false
     hidePresentation: false
-    showParticipantsOnLogin: true
+    showParticipantsOnLogin: false
   media:
     audio:
       #
@@ -512,8 +512,8 @@ public:
       # '/imports/api/audio/client' dir.
       #
       bridges:
-          #
-          # The name of the bridge
+        #
+        # The name of the bridge
         - name: sipjs
           #
           # The bridge file path , relative to /imports/api/audio/client
@@ -597,7 +597,7 @@ public:
   presentation:
     allowDownloadable: true
     panZoomThrottle: 32
-    restoreOnUpdate: false
+    restoreOnUpdate: true
     oldMinimizeButton: false
     uploadEndpoint: '/bigbluebutton/presentation/upload'
     fileUploadConstraintsHint: false
@@ -768,7 +768,7 @@ private:
     pencilChunkLength: 100
     loadSlidesFromHttpAlways: false
   etherpad:
-    apikey: ETHERPAD_APIKEY
+    apikey: vNMXMx0bbegA79TRvf8TI6XwGn0eZmEj54b1CSGDLmTb7254XlU4TDOflN2cG
     version: 1.2.13
     host: 127.0.0.1
     port: 9001

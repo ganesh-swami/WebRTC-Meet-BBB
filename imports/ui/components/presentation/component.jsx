@@ -154,7 +154,11 @@ class Presentation extends PureComponent {
       presentationBounds,
       numCameras,
       intl,
+      layoutValue,
+      amIPresenter
     } = this.props;
+
+    console.log('@class @componentDidUpdate amIPresenter,userIsPresenter,layoutSwapped,layoutValue', amIPresenter,userIsPresenter,layoutSwapped,layoutValue);
 
     const {
       numCameras: prevNumCameras,
@@ -229,6 +233,14 @@ class Presentation extends PureComponent {
         if (slideChanged || positionChanged || pollPublished) {
           toggleSwapLayout(layoutContextDispatch);
         }
+        else if(typeof layoutValue!=='undefined' && amIPresenter!==true && layoutValue !== layoutSwapped){
+          console.log('@class 2222222222222')
+          toggleSwapLayout(layoutContextDispatch);
+        }
+      }
+      else if(typeof layoutValue!=='undefined' && amIPresenter!==true && layoutValue !== layoutSwapped){
+        console.log('@class 11111111111')
+        toggleSwapLayout(layoutContextDispatch);
       }
 
       if (presentationBounds !== prevPresentationBounds) this.onResize();

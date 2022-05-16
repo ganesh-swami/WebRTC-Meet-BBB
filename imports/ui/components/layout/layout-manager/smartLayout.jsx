@@ -368,7 +368,8 @@ class SmartLayout extends Component {
         cameraDockBounds.position = CAMERADOCK_POSITION.CONTENT_TOP;
       } else if (mediaBounds.width < mediaAreaBounds.width) {
         cameraDockBounds.width = mediaAreaBounds.width - mediaBoundsWidth;
-        cameraDockBounds.maxWidth = mediaAreaBounds.width * 0.8;
+        // cameraDockBounds.maxWidth = mediaAreaBounds.width * 0.8;
+        cameraDockBounds.maxWidth = mediaAreaBounds.width * 0.5;
         cameraDockBounds.height = mediaAreaBounds.height;
         cameraDockBounds.maxHeight = mediaAreaBounds.height;
         cameraDockBounds.left += camerasMargin;
@@ -382,7 +383,8 @@ class SmartLayout extends Component {
         cameraDockBounds.width = mediaAreaBounds.width;
         cameraDockBounds.maxWidth = mediaAreaBounds.width;
         cameraDockBounds.height = mediaAreaBounds.height - mediaBounds.height;
-        cameraDockBounds.maxHeight = mediaAreaBounds.height * 0.8;
+        // cameraDockBounds.maxHeight = mediaAreaBounds.height * 0.8;
+        cameraDockBounds.maxHeight = mediaAreaBounds.height * 0.5;
         cameraDockBounds.top += camerasMargin;
         cameraDockBounds.height -= (camerasMargin * 2);
         cameraDockBounds.position = CAMERADOCK_POSITION.CONTENT_TOP;
@@ -407,7 +409,7 @@ class SmartLayout extends Component {
       cameraDockBounds.width = 0;
       cameraDockBounds.height = 0;
     }
-
+    console.log('[smart-layout] @class12 cameraDockBounds', cameraDockBounds);
     return cameraDockBounds;
   }
 
@@ -476,10 +478,13 @@ class SmartLayout extends Component {
     if (input.cameraDock.numCameras > 0 && !input.cameraDock.isDragging) {
       if (slideSize.width !== 0 && slideSize.height !== 0 && !hasExternalVideo && !hasScreenShare) {
         if (slideSize.width < mediaAreaBounds.width && deviceType !== DEVICE_TYPE.MOBILE) {
-          if (slideSize.width < (mediaAreaBounds.width * 0.8)) {
+          console.log('[smart-layout] @class12  slideSize,mediaAreaBounds', slideSize,mediaAreaBounds);
+          //@gs if (slideSize.width < (mediaAreaBounds.width * 0.8)) {
+          if (slideSize.width < (mediaAreaBounds.width * 0.5)) {
             mediaBounds.width = slideSize.width;
           } else {
-            mediaBounds.width = mediaAreaBounds.width * 0.8;
+            //@gs mediaBounds.width = mediaAreaBounds.width * 0.8;
+            mediaBounds.width = mediaAreaBounds.width * 0.5;
           }
           mediaBounds.height = mediaAreaBounds.height;
           mediaBounds.top = mediaAreaBounds.top;
@@ -488,10 +493,12 @@ class SmartLayout extends Component {
           mediaBounds.left = !isRTL ? sizeValue : null;
           mediaBounds.right = isRTL ? sidebarSize : null;
         } else {
-          if (slideSize.height < (mediaAreaBounds.height * 0.8)) {
+          //@gs if (slideSize.height < (mediaAreaBounds.height * 0.8)) {
+          if (slideSize.height < (mediaAreaBounds.height * 0.5)) {
             mediaBounds.height = slideSize.height;
           } else {
-            mediaBounds.height = mediaAreaBounds.height * 0.8;
+            //@gs mediaBounds.height = mediaAreaBounds.height * 0.8;
+            mediaBounds.height = mediaAreaBounds.height * 0.5;
           }
           mediaBounds.width = mediaAreaBounds.width;
           mediaBounds.top = mediaAreaBounds.top
@@ -502,7 +509,8 @@ class SmartLayout extends Component {
         }
       } else {
         mediaBounds.width = mediaAreaBounds.width;
-        mediaBounds.height = mediaAreaBounds.height * 0.8;
+        //@gs mediaBounds.height = mediaAreaBounds.height * 0.8;
+        mediaBounds.height = mediaAreaBounds.height * 0.5;
         mediaBounds.top = mediaAreaBounds.top
           + (mediaAreaBounds.height - mediaBounds.height);
         const sizeValue = mediaAreaBounds.left;
@@ -518,7 +526,7 @@ class SmartLayout extends Component {
       mediaBounds.right = isRTL ? sidebarSize : null;
     }
     mediaBounds.zIndex = 1;
-
+    console.log('[smart-layout] @class12  mediaBounds', mediaBounds);
     return mediaBounds;
   }
 

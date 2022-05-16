@@ -30,5 +30,7 @@ const VideoListContainer = ({ children, ...props }) => {
 
 export default withTracker((props) => ({
   numberOfPages: VideoService.getNumberOfPages(),
+  focusedStream: VideoService.getFocusedStream(),
+  presenterID: VideoService.getPresenterId(),
   ...props,
 }))(VideoListContainer);

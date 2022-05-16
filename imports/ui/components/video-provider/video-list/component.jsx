@@ -11,6 +11,7 @@ import playAndRetry from '/imports/utils/mediaElementPlayRetry';
 import VideoService from '/imports/ui/components/video-provider/service';
 import Button from '/imports/ui/components/button/component';
 import { ACTIONS } from '../../layout/enums';
+import Auth from '/imports/ui/services/auth';
 
 const propTypes = {
   streams: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -97,8 +98,40 @@ class VideoList extends Component {
     window.addEventListener('videoPlayFailed', this.handlePlayElementFailed);
   }
 
+  // componentDidUpdate(prevProps) {
+  //   const { focusedId } = this.state;
+  //   const { layoutType, cameraDock, streams } = this.props;
+  //   const { width: cameraDockWidth, height: cameraDockHeight } = cameraDock;
+  //   const {
+  //     layoutType: prevLayoutType,
+  //     cameraDock: prevCameraDock,
+  //     streams: prevStreams,
+  //   } = prevProps;
+  //   const { width: prevCameraDockWidth, height: prevCameraDockHeight } = prevCameraDock;
+
+  //   const focusedStream = streams.filter((item) => item.stream === focusedId);
+
+  //   if (focusedId && focusedStream.length === 0) {
+  //     this.handleVideoFocus(focusedId);
+  //   }
+  //   if (layoutType !== prevLayoutType
+  //     || cameraDockWidth !== prevCameraDockWidth
+  //     || cameraDockHeight !== prevCameraDockHeight
+  //     || streams.length !== prevStreams.length) {
+  //     this.handleCanvasResize();
+  //   }
+  // }
+
   componentDidUpdate(prevProps) {
-    const { focusedId } = this.state;
+    //const { focusedId } = this.state;
+    const {focusedStream} = this.props;
+    console.log('@class focusedStream', focusedStream);
+    const  focusedId  = focusedStream?.stream;
+    let  prevfocusedId  =  prevProps.focusedStream?.stream;
+    // if(prevProps.focusedStream){
+    //   prevfocusedId= prevProps.focusedStream?.stream;
+    // }
+
     const { layoutType, cameraDock, streams } = this.props;
     const { width: cameraDockWidth, height: cameraDockHeight } = cameraDock;
     const {
@@ -108,16 +141,28 @@ class VideoList extends Component {
     } = prevProps;
     const { width: prevCameraDockWidth, height: prevCameraDockHeight } = prevCameraDock;
 
-    const focusedStream = streams.filter((item) => item.stream === focusedId);
+    // const focusedStream2 = streams.filter((item) => item.stream === focusedId);
 
-    if (focusedId && focusedStream.length === 0) {
-      this.handleVideoFocus(focusedId);
-    }
+    // if (focusedId && focusedStream2.length === 0) {
+    //   this.handleVideoFocus(focusedId);
+    // }
     if (layoutType !== prevLayoutType
       || cameraDockWidth !== prevCameraDockWidth
       || cameraDockHeight !== prevCameraDockHeight
-      || streams.length !== prevStreams.length) {
+      || streams.length !== prevStreams.length
+      || focusedId !== prevfocusedId
+      ) {
       this.handleCanvasResize();
+    }
+
+    if(focusedId !== prevfocusedId){
+      this.handleVideoFocus(focusedId);
+      // const focusedStream2 = streams.filter((item) => item.stream === focusedId);
+
+      // if (focusedId && focusedStream2.length === 0) {
+      //   this.handleVideoFocus(focusedId);
+      // }
+      window.dispatchEvent(new Event('videoFocusChange'));
     }
   }
 
@@ -190,6 +235,7 @@ class VideoList extends Component {
       streams,
       cameraDock,
       layoutContextDispatch,
+      swapLayout
     } = this.props;
     let numItems = streams.length;
     if (numItems < 1 || !this.canvas || !this.grid) {
@@ -201,10 +247,18 @@ class VideoList extends Component {
 
     const gridGutter = parseInt(window.getComputedStyle(this.grid)
       .getPropertyValue('grid-row-gap'), 10);
-    const hasFocusedItem = numItems > 2 && focusedId;
+    //const hasFocusedItem = numItems > 2 && focusedId;
+    const hasFocusedItem = numItems > 1 //&& focusedId;
     // Has a focused item so we need +3 cells
     if (hasFocusedItem) {
-      numItems += 3;
+      if(swapLayout===true){
+        numItems += 9;
+      
+      }
+      else{
+        numItems += 3;
+      }
+      
     }
     const optimalGrid = _.range(1, numItems + 1)
       .reduce((currentGrid, col) => {
@@ -316,20 +370,23 @@ class VideoList extends Component {
       onVideoItemMount,
       onVideoItemUnmount,
       swapLayout,
+      presenterID
     } = this.props;
+    console.log('@class swapLayout,presenterID',swapLayout,presenterID);
     const { focusedId } = this.state;
     const numOfStreams = streams.length;
 
     return streams.map((vs) => {
       const { stream, userId, name } = vs;
-      const isFocused = focusedId === stream && numOfStreams > 2;
+      const isFocused = focusedId === stream //&& numOfStreams > 2;
 
       return (
         <div
           key={stream}
           className={cx({
             [styles.videoListItem]: true,
-            [styles.focused]: focusedId === stream && numOfStreams > 2,
+            [styles.focused3]: swapLayout===true && presenterID==userId, // focusedId === stream, // && numOfStreams > 2,
+            [styles.focused2]: !swapLayout===true && presenterID==userId,// focusedId === stream // && numOfStreams > 2,
           })}
           data-test="webcamVideoItem"
         >

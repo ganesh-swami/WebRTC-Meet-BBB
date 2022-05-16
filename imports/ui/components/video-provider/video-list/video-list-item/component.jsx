@@ -172,6 +172,7 @@ class VideoListItem extends Component {
       onHandleVideoFocus,
       user,
       focused,
+      amIPresenter
     } = this.props;
 
     const pinned = user?.pin;
@@ -187,14 +188,16 @@ class VideoListItem extends Component {
       onClick: () => this.mirrorCamera(cameraId),
     }];
 
-    if (numOfStreams > 2) {
-      menuItems.push({
-        key: `${cameraId}-focus`,
-        label: intl.formatMessage(intlMessages[`${isFocusedIntlKey}Label`]),
-        description: intl.formatMessage(intlMessages[`${isFocusedIntlKey}Desc`]),
-        onClick: () => onHandleVideoFocus(cameraId),
-      });
-    }
+    //if (numOfStreams > 2) {
+    // if (amIPresenter===true && numOfStreams > 1) {
+    //   menuItems.push({
+    //     key: `${cameraId}-focus`,
+    //     label: intl.formatMessage(intlMessages[`${isFocusedIntlKey}Label`]),
+    //     description: intl.formatMessage(intlMessages[`${isFocusedIntlKey}Desc`]),
+    //     //onClick: () => onHandleVideoFocus(cameraId),
+    //     onClick: () => VideoService.toggleVideoFocus(userId,cameraId,focused),
+    //   });
+    // }
 
     if (VideoService.isVideoPinEnabledForCurrentUser()) {
       menuItems.push({

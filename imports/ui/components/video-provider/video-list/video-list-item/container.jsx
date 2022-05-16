@@ -5,6 +5,7 @@ import VoiceUsers from '/imports/api/voice-users/';
 import Users from '/imports/api/users/';
 import VideoListItem from './component';
 import LayoutContext from '/imports/ui/components/layout/context';
+import actionBarService from '/imports/ui/components/actions-bar/service';
 
 const VideoListItemContainer = (props) => {
   const { cameraId } = props;
@@ -34,7 +35,8 @@ export default withTracker((props) => {
     voiceUser: VoiceUsers.findOne({ intId: userId },
       { fields: { muted: 1, listenOnly: 1, talking: 1 } }),
     user: Users.findOne({ intId: userId },
-      { fields: { pin: 1, userId: 1 } }),
+      { fields: { pin: 1, userId: 1,role:1 }}),
+    amIPresenter: actionBarService.amIPresenter(),
   };
 })(VideoListItemContainer);
 

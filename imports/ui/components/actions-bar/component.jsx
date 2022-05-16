@@ -82,7 +82,8 @@ class ActionsBar extends PureComponent {
           />
         </div>
         <div className={styles.right}>
-          {!isOldMinimizeButtonEnabled ||
+
+          {amIPresenter ===true && !isOldMinimizeButtonEnabled ||
             (isOldMinimizeButtonEnabled && isLayoutSwapped && !isPresentationDisabled)
             ? (
               <PresentationOptionsContainer
@@ -92,6 +93,7 @@ class ActionsBar extends PureComponent {
                 hasPresentation={isThereCurrentPresentation}
                 hasExternalVideo={isSharingVideo}
                 hasScreenshare={hasScreenshare}
+                amIPresenter={amIPresenter}
               />
             )
             : null}

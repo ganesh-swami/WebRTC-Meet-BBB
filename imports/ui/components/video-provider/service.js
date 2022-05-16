@@ -409,10 +409,28 @@ class VideoService {
 
     return user.pin;
   }
+  toggleVideoFocus(userId, streamId,userIsFocused) {
+    makeCall('changeFocus', userId, !userIsFocused);
+    console.log('[video-provider/service] toggleVideoFocus @class,streamId', streamId);
+    makeCall('userFocusWebcam', userId, streamId, !userIsFocused);
+  }
 
   toggleVideoPin(userId, userIsPinned) {
     makeCall('changePin', userId, !userIsPinned);
   }
+
+  getFocusedStream() {
+    return VideoStreams.findOne({ meetingId: Auth.meetingID,focus: true }, { fields: { stream:1 } });
+  }
+
+  getPresenterId() {
+    let presenter= Users.findOne({presenter:true },{ fields: {  userId:1 } });
+    if (!presenter) {
+      return false;
+    }
+  
+    return presenter.userId;
+  } 
 
   getVideoStreams() {
     const pageSize = this.getMyPageSize();
@@ -976,6 +994,9 @@ export default {
   getPageChangeDebounceTime: () => { return PAGE_CHANGE_DEBOUNCE_TIME },
   getUsersIdFromVideoStreams: () => videoService.getUsersIdFromVideoStreams(),
   shouldRenderPaginationToggle: () => videoService.shouldRenderPaginationToggle(),
+  toggleVideoFocus: (userId,streamId, focus) => videoService.toggleVideoFocus(userId,streamId, focus),
+  getFocusedStream: () => videoService.getFocusedStream(),
+  getPresenterId: () => videoService.getPresenterId(),
   toggleVideoPin: (userId, pin) => videoService.toggleVideoPin(userId, pin),
   getVideoPinByUser: (userId) => videoService.getVideoPinByUser(userId),
   isVideoPinEnabledForCurrentUser: () => videoService.isVideoPinEnabledForCurrentUser(),

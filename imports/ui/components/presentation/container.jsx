@@ -42,6 +42,7 @@ const PresentationContainer = ({ presentationPodIds, mountPresentation, ...props
     <Presentation
       {
       ...{
+        amIPresenter: currentUser.presenter,
         layoutContextDispatch,
         numCameras,
         ...props,
@@ -109,6 +110,8 @@ export default withTracker(({ podId }) => {
     }
   }
 
+  
+
   return {
     currentSlide,
     slidePosition,
@@ -129,6 +132,11 @@ export default withTracker(({ podId }) => {
         publishedPoll: 1,
       },
     }).publishedPoll,
+    layoutValue: Meetings.findOne({ meetingId: Auth.meetingID }, {
+      fields: {
+        layoutValue: 1,
+      },
+    }).layoutValue,
     restoreOnUpdate: getFromUserSettings(
       'bbb_force_restore_presentation_on_new_events',
       Meteor.settings.public.presentation.restoreOnUpdate,
