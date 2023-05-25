@@ -16,7 +16,7 @@ We designed BigBlueButton for online learning, it can be used for many other app
 
 The latest version is BigBlueButton 2.6.  You can install BigBlueButton 2.6 on Ubuntu 20.04 using [bbb-install.sh](https://github.com/bigbluebutton/bbb-install) within 30 minutes (or your money back 😉).
 
-[Original BigBLueButton Repo] (https://github.com/bigbluebutton/bigbluebutton)
+[Original BigBLueButton Repo](https://github.com/bigbluebutton/bigbluebutton)
 
 # About Above BigBlueButton Customization
 We tried to implement below features in repo
@@ -33,5 +33,5 @@ Planing to implement below features
 - pin messages in chat
 - performance optimization
 Kudos to avinya web team for all hard work
-[Hire BigBlueButton Developer] (https://avinyaweb.com/hire-top-bigbluebutton-developer-one-of-the-best-bbb-expert/)
-[Hire Web Developer or web development service provider] (https://avinyaweb.com/)
+[Hire BigBlueButton Developer](https://avinyaweb.com/hire-top-bigbluebutton-developer-one-of-the-best-bbb-expert/)
+[Hire Web Developer or web development service provider](https://avinyaweb.com/)
